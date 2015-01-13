@@ -1,4 +1,7 @@
-Unit test related to: https://groups.google.com/forum/#!topic/camunda-bpm-users/8fUx40_PhAs
+Unit test related to: 
+https://groups.google.com/forum/#!topic/camunda-bpm-users/7fB4rxWEpVY
+AND
+https://groups.google.com/forum/#!topic/camunda-bpm-users/8fUx40_PhAs
 
 To run with async script task: 
 mvn -Dtest=SimpleTestCase#simpleWithAsync test 
