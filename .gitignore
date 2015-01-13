@@ -12,3 +12,4 @@ target/surefire-reports/*
 target/surefire-reports/org.camunda.bpm.unittest.SimpleTestCase.txt
 
 target/camunda-engine-unittest-0.1.0-SNAPSHOT.jar
+/target
