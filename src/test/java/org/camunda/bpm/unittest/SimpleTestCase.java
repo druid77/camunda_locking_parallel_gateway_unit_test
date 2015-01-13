@@ -12,50 +12,71 @@
  */
 package org.camunda.bpm.unittest;
 
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.runtimeService;
+
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
-
-import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
-
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * @author Daniel Meyer
- * @author Martin Schimak
+ * 
  */
 public class SimpleTestCase {
 
   @Rule
   public ProcessEngineRule rule = new ProcessEngineRule();
 
+  
   @Test
-  @Deployment(resources = {"locking.bpmn"})
-  public void shouldExecuteProcess() {
-    // Given we create a new process instance
-    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey("locking");
-    // Then it should be active
-//    assertThat(processInstance).isActive();
-//    // And it should be the only instance
-//    assertThat(processInstanceQuery().count()).isEqualTo(1);
-//    // And there should exist just a single task within that process instance
-//    assertThat(task(processInstance)).isNotNull();
-//
-//    // When we complete that task
-//    complete(task(processInstance));
-    // Then the process instance should be ended
+  @Deployment(resources = {"simple_no_async.bpmn"})
+  public void simpleNoAsync() {
+    System.out.println("**** Running simple_no_async test...");
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey("simple_no_async");
     
     try {
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
+    System.out.println("IS ENDED: " + processInstance.isEnded());
+  }
+  
+  
+  @Test
+  @Deployment(resources = {"simple_with_async.bpmn"})
+  public void simpleWithAsync() {
+	System.out.println("**** Running simple_with_async test...");
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey("simple_with_async");
+    
+    try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}
     
     System.out.println("IS ENDED: " + processInstance.isEnded());
     System.out.println("IS SUSP: " + processInstance.isSuspended());
-    //assertThat(processInstance).isEnded();
+  }
+  
+  @Ignore
+  @Test
+  @Deployment(resources = {"locking.bpmn"})
+  public void shouldExecuteProcess() {
+	System.out.println("Running locking test...");
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey("locking");
+    
+    try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+    
+    System.out.println("IS ENDED: " + processInstance.isEnded());
+    System.out.println("IS SUSP: " + processInstance.isSuspended());
   }
 
 }
